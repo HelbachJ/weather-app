@@ -1,5 +1,5 @@
 # Weather App 
-This is a [Next.js](https://nextjs.org/) project that uses OpenWeather REST API (https://openweathermap.org/api)
+This is a [Next.js](https://nextjs.org/) project that uses [OpenWeather](https://openweathermap.org/api) REST API 
 
 ## Getting Started
 
