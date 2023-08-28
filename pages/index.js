@@ -5,12 +5,15 @@ import { useState } from "react";
 import Weather from "../components/Weather";
 import Background from "../assets/background.jpg";
 import Search from "../components/Search";
-import Modal from "../components/Modal";
+import ErrorModal from "../components/ErrorModal";
+import Spinner from "../components/Spinner";
 
 export default function Home() {
   const [weather, setWeather] = useState({});
   const [isErrorModalOpen, setIsErrorModalOpen] = useState(false);
   const [errorMessage, setErrorMessage] = useState("");
+  const [checkZip, setCheckZip] = useState([]);
+  const [isLoading, setIsLoading] = useState(false);
 
   const openErrorModal = (errorMessage) => {
     setErrorMessage(errorMessage);
@@ -22,34 +25,47 @@ export default function Home() {
     setErrorMessage("");
   };
 
-  const fetchWeather = async (city, zip) => {
-    const url = `https://api.openweathermap.org/data/2.5/weather?q=${city}&zip=${zip},us&appid=${process.env.NEXT_PUBLIC_WEATHER_KEY}&units=imperial`;
+  const fetchWeather = async (city) => {
+    const newZipArray = [...checkZip.slice(1), city];
 
-    if (!city && !zip) {
+    const url = isNaN(city)
+      ? `https://api.openweathermap.org/data/2.5/weather?q=${city}&appid=${process.env.NEXT_PUBLIC_WEATHER_KEY}&units=imperial`
+      : `https://api.openweathermap.org/data/2.5/weather?zip=${city}&appid=${process.env.NEXT_PUBLIC_WEATHER_KEY}&units=imperial`;
+
+    if (!city) {
       openErrorModal("ERROR! Please enter a city name or zip code.");
       return;
     } else if (
       city.toLowerCase() === weather?.name?.toLowerCase() ||
-      zip === weather?.zip?.toLowerCase()
+      checkZip.includes(city)
     ) {
       openErrorModal(
-        "ERROR! You already have weather data for this city or zip code."
+        "ERROR! Weather for this location is currently displayed."
       );
+
       return;
     } else {
       try {
         const response = await axios.get(url);
         if (response.status === 200) {
+          setIsLoading(true);
           setTimeout(() => {
             const weatherData = response.data;
             setWeather(weatherData);
-          }, 1);
+            setCheckZip([...checkZip, city]);
+            setIsLoading(false);
+            setCheckZip(newZipArray);
+          }, 1000);
           setWeather({});
         } else {
           console.error("Failed to fetch weather data");
         }
       } catch (error) {
         console.error("An error occurred:", error);
+        openErrorModal(
+          "ERROR! Failed to fetch weather data. Make sure entered city/zip code is correct"
+        );
+        setIsLoading(false);
       }
     }
   };
@@ -67,11 +83,11 @@ export default function Home() {
       <Image src={Background} layout="fill" className="object-cover" />
 
       {/* Search */}
-      <Search onSearch={fetchWeather} />
+      {<Search onSearch={fetchWeather} disabled={isLoading} />}
       {isErrorModalOpen && (
-        <Modal message={errorMessage} onClose={closeErrorModal} />
+        <ErrorModal message={errorMessage} onClose={closeErrorModal} />
       )}
-      {weather.main && <Weather data={weather} />}
+      {isLoading ? <Spinner /> : weather.main && <Weather data={weather} />}
     </div>
   );
 }
