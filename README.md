@@ -4,9 +4,9 @@ This is a [Next.js](https://nextjs.org/) project that uses [OpenWeather](https:/
 ## Getting Started
 
 ### Install
-1) node.js https://nodejs.org/dist/v16.16.0/node-v16.16.0-x64.msi
-2) yarn https://github.com/yarnpkg/yarn/releases/download/v1.22.19/yarn-1.22.19.msi for .msi download
-    or https://github.com/yarnpkg/yarn/releases/tag/v1.22.19 if the .msi doesn't work
+1) [node.js](https://nodejs.org/dist/v16.16.0/node-v16.16.0-x64.msi)
+2) [yarn](https://github.com/yarnpkg/yarn/releases/download/v1.22.19/yarn-1.22.19.msi) for .msi download
+    or [mirror]https://github.com/yarnpkg/yarn/releases/tag/v1.22.19 if the .msi doesn't work
    
 ## Usage
 1) Run "npm install --global yarn" in the extracted folder
