@@ -11,7 +11,7 @@ This is a [Next.js](https://nextjs.org/) project that uses [OpenWeather](https:/
 ## Usage
 1) Run "npm install --global yarn" in the extracted folder
 2) Run "yarn install" to fully install node.js, yarn, and the other dependencies into the project
-3) Run "yarn dev" and Open [http://localhost:3000](http://localhost:3000) with your browser to view the project
+3) Run "yarn dev" and Open [http://localhost:3000](http://localhost:3000) with your browser to view the project (Make sure you are in the weather-app folder)
 
 ## Description
 This application has the user input the name of a city or zip code and if the information entered is valid shows weather information related to the entered value.
