@@ -1,5 +1,5 @@
 # Weather App 
-This is a [Next.js](https://nextjs.org/) project that uses [OpenWeather](https://openweathermap.org/api) REST API 
+This is a [Next.js](https://nextjs.org/) project that uses [OpenWeather](https://openweathermap.org/api) REST API. This repository does not contain an API key you will need to get your own at [OpenWeather.org](https://openweathermap.org/api). Once you've have signed up and obtained an API key create a .env file to your root folder. Enter NEXT_PUBLIC_WEATHER_KEY=[YOUR API KEY HERE] without the brackets into the .env file and hit save.
 
 ## Getting Started
 
